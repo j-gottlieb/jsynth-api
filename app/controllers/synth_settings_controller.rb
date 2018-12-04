@@ -3,7 +3,7 @@ class SynthSettingsController < ProtectedController
 
   # GET /synth_settings
   def index
-    @synth_settings = current_user.synth
+    @synth_settings = current_user.synth_settings.all
 
     render json: @synth_settings
   end
@@ -15,7 +15,7 @@ class SynthSettingsController < ProtectedController
 
   # POST /synth_settings
   def create
-    @synth_setting = SynthSetting.new(synth_setting_params)
+    @synth_setting = current_user.synth_settings.build(synth_setting_params)
 
     if @synth_setting.save
       render json: @synth_setting, status: :created, location: @synth_setting
@@ -41,7 +41,7 @@ class SynthSettingsController < ProtectedController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_synth_setting
-      @synth_setting = SynthSetting.find(params[:id])
+      @synth_setting = current_user.synth_settings.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
