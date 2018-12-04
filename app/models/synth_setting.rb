@@ -1,0 +1,2 @@
+class SynthSetting < ApplicationRecord
+end
