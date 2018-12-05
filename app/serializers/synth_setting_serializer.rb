@@ -1,3 +1,3 @@
 class SynthSettingSerializer < ActiveModel::Serializer
-  attributes :id, :name, :chorusrate, :chorustoggle, :filtercutoff, :filtertoggle
+  attributes :id, :name, :oscillator_type, :chorusrate, :chorustoggle, :filtercutoff, :filtertoggle
 end

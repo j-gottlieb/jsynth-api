@@ -46,6 +46,6 @@ class SynthSettingsController < ProtectedController
 
     # Only allow a trusted parameter "white list" through.
     def synth_setting_params
-      params.require(:synth_setting).permit(:name, :chorusrate, :chorustoggle, :filtercutoff, :filtertoggle)
+      params.require(:synth_setting).permit(:name, :oscillator_type, :chorusrate, :chorustoggle, :filtercutoff, :filtertoggle)
     end
 end

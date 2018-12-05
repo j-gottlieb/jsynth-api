@@ -8,6 +8,7 @@ curl "http://localhost:4741/synth_settings" \
   --data '{
     "synth_setting": {
       "name": "'"${NAME}"'",
+      "oscillator_type": "'"${TYPE}"'",
       "chorusrate": "'"${CHORUSRATE}"'",
       "chorustoggle": "'"${CHORUSTOGGLE}"'",
       "filtercutoff": "'"${FILTERCUTOFF}"'",
