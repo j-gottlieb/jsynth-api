@@ -2,7 +2,7 @@
 
 ##### This API is designed to accompany the JSynth web browser client. It stores user information including login credentials and effects settings.
 
-![ERD](./public/erd.png "ERD")
+![ERD](./public/jsynth_erd.png "ERD")
 
 ### Links:
 * [API repo](https://github.com/j-gottlieb/jsynth-api)
