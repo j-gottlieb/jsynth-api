@@ -1,93 +1,42 @@
-Rails[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
+## Welcome to the JSynth API repo
 
-# rails-api-template
+##### This API is designed to accompany the JSynth web browser client. It stores user information including login credentials and effects settings.
 
-A template for starting projects with `rails-api`. Includes authentication.
+![ERD](./public/erd.png "ERD")
 
-At the beginning of each cohort, update the versions in [`Gemfile`](Gemfile).
+### Links:
+* [API repo](https://github.com/j-gottlieb/jsynth-api)
+* [Client repo](https://github.com/j-gottlieb/jsynth-jquery-client)
+* [Deployed API](https://jsynth-api.herokuapp.com/)
+* [Deployed Client](https://j-gottlieb.github.io/jsynth-jquery-client/)
 
-## Prerequisites
+### Planning:
 
--   [rails-api-examples-walkthrough](https://git.generalassemb.ly/ga-wdi-boston/rails-api-examples-walkthrough)
+From the beginning, I knew this API would be relatively simple. The majority of the work on this project would happen on the front-end. It would be just a users resource and a synth_settings resource.
 
-## Dependencies
+Being brutally honest with myself, the majority of my difficulties stemmed from being over-confident in my Rails ability. I initially set it it up very quickly and achieved what I thought were correct results. However I later discovered that I hadn't used a foreign key when I needed to.
 
-Install with `bundle install`.
+Later, I blindly copied and pasted from a previous project believing that it was exactly the same as my current situation, but of course it was not. After a lot of struggle I realized that I had validated my synth_settings by uniqueness of name, which was definitely not what I wanted.
 
--   [`rails-api`](https://github.com/rails-api/rails-api)
--   [`rails`](https://github.com/rails/rails)
--   [`active_model_serializers`](https://github.com/rails-api/active_model_serializers)
--   [`ruby`](https://www.ruby-lang.org/en/)
--   [`postgres`](http://www.postgresql.org)
+This process taught me that I should never be to confident in my abilities and to ALWAYS read the docs!!!
 
-## Installation
+### Technologies Used
+* Ruby
+* Ruby on Rails
+* Heroku
 
-### Download Template:
-1.  [Download](../../archive/master.zip) this template.
-1.  Unzip and rename the template directory (`unzip ~/Downloads/rails-api-template-master.zip`)
-1.  Move into the new project and `git init`.
+### Unsolved Issues:
 
-### Customize Template:
-1.  Empty [`README.md`](README.md) and fill with your own content.
-1.  Rename your app module in `config/application.rb` (change
-    `RailsApiTemplate`).
-1.  Rename your project database in `config/database.yml` (change
-    `'rails-api-template'`).
+I would like to add more columns to my table for more effects.
 
-### Setup Environment:
-1.  Install dependencies with `bundle install`.
-1.  `git add` and `git commit` your changes.
-1.  Create a `.env` for sensitive settings (`touch .env`).
-1.  Generate new `development` and `test` secrets (`bundle exec rails secret`).
-1.  Store them in `.env` with keys `SECRET_KEY_BASE_<DEVELOPMENT|TEST>`
-    respectively.
-1.  In order to make requests to your deployed API, you will need to set
-    `SECRET_KEY_BASE` in the environment of the production API (for example, using `heroku config:set` or the Heroku dashboard).
-1.  In order to make requests from your deployed client application, you will
-    need to set `CLIENT_ORIGIN` in the environment of the production API (for example, `heroku config:set CLIENT_ORIGIN=https://<github-username>.github.io`).
-    See more about deploying to heroku [rails-heroku-setup-guide](https://git.generalassemb.ly/ga-wdi-boston/rails-heroku-setup-guide)
+### Setup and Installation:
 
-### Setup your database:
-    - bin/rails db:drop (if it already exists)
-    - bin/rails db:create
-    - bin/rails db:migrate
-    - bin/rails db:seed
-    - bin/rails db:examples
+1. Download template, unzip and rename
+2. bundle install
+3. Initialize git and heroku repos
+4. Deploy to heroku
 
-  Note: Remember to follow the same commands when setting up your deployed database!
-
-### Run your server!
-1. Run the API server with `bin/rails server` or `bundle exec rails server`.
-
-## Structure
-
-This template follows the standard project structure in Rails.
-
-`curl` command scripts are stored in [`curl-scripts`](curl-scripts) with names that
-correspond to API actions.
-
-User authentication is built-in.
-
-## Tasks
-
-Developers should run these often!
-
--   `bin/rails routes` lists the endpoints available in your API.
--   `bin/rspec spec` runs automated tests.
--   `bin/rails console` opens a REPL that pre-loads the API.
--   `bin/rails db` opens your database client and loads the correct database.
--   `bin/rails server` starts the API.
--   `curl-scripts/*.sh` run various `curl` commands to test the API. See below.
-
-## API
-
-Use this as the basis for your own API documentation. Add a new third-level
-heading for your custom entities, and follow the pattern provided for the
-built-in user authentication documentation.
-
-Scripts are included in [`curl-scripts`](curl-scripts) to test built-in actions. Add your
-own scripts to test your custom API. As an alternative, you can write automated
-tests in RSpec to test your API.
+## API specifications
 
 ### Authentication
 
@@ -96,7 +45,7 @@ tests in RSpec to test your API.
 | POST   | `/sign-up`             | `users#signup`    |
 | POST   | `/sign-in`             | `users#signin`    |
 | PATCH  | `/change-password`     | `users#changepw`  |
-| DELETE | `/sign-out`        | `users#signout`   |
+| DELETE | `/sign-out`            | `users#signout`   |
 
 #### POST /sign-up
 
@@ -319,31 +268,110 @@ Content-Type: application/json; charset=utf-8
 {"user":{"id":1,"email":"mike@m"}}
 ```
 
-### Reset Database without dropping
+### Synth_Settings
 
-This is not a task developers should run often, but it is sometimes necessary.
+| Verb   | URI Pattern            | Controller#Action |
+|--------|------------------------|-------------------|
+| POST   | `/synth_settings`      | `synth_settings#create`    |
+| GET    | `/synth_settings`      | `synth_settings#index`    |
+| PATCH  | `/synth_settings/:id`  | `synth_settings#update`  |
+| DELETE | `/synth_settings/:id`  | `synth_settings#destroy`   |
 
-**locally**
+#### POST /synth_settings
+
+Request:
 
 ```sh
-bin/rails db:migrate VERSION=0
-bin/rails db:migrate db:seed db:examples
+curl "http://localhost:4741/synth_settings" \
+  --include \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "synth_setting": {
+      "name": "'"${NAME}"'",
+      "oscillator_type": "'"${TYPE}"'",
+      "chorusrate": "'"${CHORUSRATE}"'",
+      "chorustoggle": "'"${CHORUSTOGGLE}"'",
+      "filtercutoff": "'"${FILTERCUTOFF}"'",
+      "filtertoggle": "'"${FILTERTOGGLE}"'"
+    }
+  }'
 ```
-
-**heroku**
 
 ```sh
-heroku run rails db:migrate VERSION=0
-heroku run rails db:migrate db:seed db:examples
+TOKEN='BAhJIiVlZDIwZTMzMzQzODg5NTBmYjZlNjRlZDZlNzYxYzU2ZAY6BkVG--7e7f77f974edcf5e4887b56918f34cd9fe293b9f' NAME=Setting TYPE=sine CHORUSRATE=4 CHORUSTOGGLE=true FILTERCUTOFF=1000 FILTERTOGGLE=true sh curl-scripts/synth/create-synth.sh
 ```
 
-## Additional Resources
-- [rails-heroku-setup-guide](https://git.generalassemb.ly/ga-wdi-boston/rails-heroku-setup-guide)
-- http://guides.rubyonrails.org/api_app.html
-- https://blog.codeship.com/building-a-json-api-with-rails-5/
+Response:
 
-## [License](LICENSE)
+```md
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=utf-8
 
-1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
-1.  All software code is licensed under GNU GPLv3. For commercial use or
-    alternative licensing, please contact legal@ga.co.
+{
+  "synth_setting": {
+    "name": "Setting",
+    "oscillator_type": "sine",
+    "chorusrate": "4",
+    "chorustoggle": "true",
+    "filtercutoff": "1000",
+    "filtertoggle": "true"
+  }
+  }
+}
+```
+
+#### PATCH /synth_settings/:id
+
+Request:
+
+```sh
+curl "http://localhost:4741/synth_settings/${ID}" \
+  --include \
+  --request PATCH \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "synth_setting": {
+      "name": "'"${NAME}"'",
+      "type": "'"${TYPE}"'",
+      "chorusrate": "'"${CHORUSRATE}"'",
+      "chorustoggle": "'"${CHORUSTOGGLE}"'",
+      "filtercutoff": "'"${FILTERCUTOFF}"'",
+      "filtertoggle": "'"${FILTERTOGGLE}"'"
+    }
+  }'
+```
+
+```sh
+TOKEN='BAhJIiVlZDIwZTMzMzQzODg5NTBmYjZlNjRlZDZlNzYxYzU2ZAY6BkVG--7e7f77f974edcf5e4887b56918f34cd9fe293b9f' ID=1 NAME=Setting TYPE=sine CHORUSRATE=4 CHORUSTOGGLE=true FILTERCUTOFF=1000 FILTERTOGGLE=true sh curl-scripts/synth/create-synth.sh
+```
+
+Response:
+
+```md
+HTTP/1.1 204 No Content
+```
+
+#### DELETE /synth_settings/:id
+
+Request:
+
+```sh
+curl "http://localhost:4741/synth_settings/${ID}" \
+  --include \
+  --request DELETE \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+```
+
+```sh
+TOKEN='BAhJIiVlZDIwZTMzMzQzODg5NTBmYjZlNjRlZDZlNzYxYzU2ZAY6BkVG--7e7f77f974edcf5e4887b56918f34cd9fe293b9f' ID=1 sh curl-scripts/auth/sign-out.sh
+```
+
+Response:
+
+```md
+HTTP/1.1 204 No Content
+```
