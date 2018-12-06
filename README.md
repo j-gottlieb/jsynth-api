@@ -14,11 +14,9 @@
 
 From the beginning, I knew this API would be relatively simple. The majority of the work on this project would happen on the front-end. It would be just a users resource and a synth_settings resource.
 
-Being brutally honest with myself, the majority of my difficulties stemmed from being over-confident in my Rails ability. I initially set it it up very quickly and achieved what I thought were correct results. However I later discovered that I hadn't used a foreign key when I needed to.
+Being brutally honest with myself, the majority of my difficulties stemmed from being over-confident in my Rails ability. All of my struggles stemmed from rushing a bit too much instead of doing my due dilligence.
 
-Later, I blindly copied and pasted from a previous project believing that it was exactly the same as my current situation, but of course it was not. After a lot of struggle I realized that I had validated my synth_settings by uniqueness of name, which was definitely not what I wanted.
-
-This process taught me that I should never be to confident in my abilities and to ALWAYS read the docs!!!
+This process taught me that I should never be to confident in my abilities and to ALWAYS read the docs.
 
 ### Technologies Used
 * Ruby
